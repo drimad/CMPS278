@@ -1,0 +1,19 @@
+http://localhost/getCars
+
+This is NOT REST
+/getCars
+/getCars/5
+/deletecar/5
+/addCar <-- car object is embedded in the http request object (POST request)
+/updateCar/5 <-- car object to be updated is embedded in the http request object (POST request)
+
+action & resource
+These are REST
+
+GET /Cars <-- retrieve all cars
+GET /Cars/5 <-- retrieve one car id 5
+POST /Cars <-- car object embedded inside http request
+PUT /Cars/5 <-- car object to be updated embedded inside http request
+DELETE /Cars/5 <-- delete car id 5
+
+https://insomnia.rest/
