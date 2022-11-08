@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\cmps\\Projects\\Cars\\Cars.csproj": {}
+    "c:\\Users\\cmps\\Projects\\Cars\\Cars.csproj": {}
   },
   "projects": {
-    "C:\\Users\\cmps\\Projects\\Cars\\Cars.csproj": {
+    "c:\\Users\\cmps\\Projects\\Cars\\Cars.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\cmps\\Projects\\Cars\\Cars.csproj",
+        "projectUniqueName": "c:\\Users\\cmps\\Projects\\Cars\\Cars.csproj",
         "projectName": "Cars",
-        "projectPath": "C:\\Users\\cmps\\Projects\\Cars\\Cars.csproj",
+        "projectPath": "c:\\Users\\cmps\\Projects\\Cars\\Cars.csproj",
         "packagesPath": "C:\\Users\\cmps\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\cmps\\Projects\\Cars\\obj\\",
+        "outputPath": "c:\\Users\\cmps\\Projects\\Cars\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\cmps\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -21,7 +21,6 @@
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -40,6 +39,16 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.11, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[6.0.11, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.2.3, )"
