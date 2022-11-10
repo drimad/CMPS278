@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\cmps\\Projects\\Cars\\Cars.csproj": {}
+    "C:\\Users\\cmps\\Projects\\Cars\\Cars.csproj": {}
   },
   "projects": {
-    "c:\\Users\\cmps\\Projects\\Cars\\Cars.csproj": {
+    "C:\\Users\\cmps\\Projects\\Cars\\Cars.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\cmps\\Projects\\Cars\\Cars.csproj",
+        "projectUniqueName": "C:\\Users\\cmps\\Projects\\Cars\\Cars.csproj",
         "projectName": "Cars",
-        "projectPath": "c:\\Users\\cmps\\Projects\\Cars\\Cars.csproj",
+        "projectPath": "C:\\Users\\cmps\\Projects\\Cars\\Cars.csproj",
         "packagesPath": "C:\\Users\\cmps\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\cmps\\Projects\\Cars\\obj\\",
+        "outputPath": "C:\\Users\\cmps\\Projects\\Cars\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\cmps\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -21,6 +21,7 @@
           "net6.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

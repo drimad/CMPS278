@@ -1,3 +1,6 @@
+using Cars.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,6 +8,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<AppDbContext>(
+    opt =>
+    {
+        opt.UseSqlite(builder.Configuration.GetConnectionString("sqlite"));
+    }
+);
 
 var app = builder.Build();
 

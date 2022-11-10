@@ -1,46 +1,40 @@
+using Cars.Data;
 using Cars.Models;
 
 namespace Cars.Repos;
+
 public class CarRepo
 {
-    private List<Car> Cars = new List<Car>
+    private readonly AppDbContext _db;
+
+    public CarRepo(AppDbContext db)
     {
-new Car(){
-Id=1,
-Brand="BMW",
-Color="Black",
-Year=2020
-},
-new Car(){
-Id=2,
-Brand="Toyota",
-Color="Rav4",
-Year=2022
-}
-    };
+        this._db = db;
+    }
 
     public void AddCar(Car car)
     {
-        this.Cars.Add(car);
     }
 
     public void DeleteCar(int id)
     {
-        // delete the car
     }
 
     public void UpdateCar(int t, Car car)
     {
-        //update the car
     }
 
     public Car GetCar(int id)
     {
-        return Cars[id];
+        var c = _db.Cars.Find(id); // LINQ query
+        return c;
+
     }
 
     public List<Car> GetCars()
     {
-        return Cars;
+        var cars = _db.Cars.ToList();
+        return cars;
     }
+
 }

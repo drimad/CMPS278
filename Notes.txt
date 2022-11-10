@@ -18,3 +18,22 @@ DELETE /Cars/5 <-- delete car id 5
 
 https://insomnia.rest/
 https://github.com/drimad/carsdemo
+
+
+NuGet packages needed for EFCore
+1. Microsoft.EntityFrameworkCore.Design
+2. Microsoft.EntityFrameworkCore.Sqlite <-- for SqLite
+
+// Activate EF Core (ORM)
+1. Create a class inherits from DbContext
+2. Add Database service
+    2a. add connection string config in appsettings 
+
+3. in this class add Dbsets for models
+4. add migrations
+5. update database
+
+6. for new models or model updates, redo steps 3, 4 & 5
+
+Note: to update EF tools: dotnet tool update --global dotnet-ef
+Note: to create migration: dotnet ef migrations add "add column"
