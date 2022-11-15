@@ -1,5 +1,6 @@
 using Cars.Data;
 using Cars.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cars.Repos;
 
@@ -12,29 +13,42 @@ public class CarRepo
         this._db = db;
     }
 
-    public void AddCar(Car car)
+    public void AddCarAsync(Car car)
     {
+        _db.Cars.Add(car);
+        var count = _db.SaveChanges();
+        if (count == 0)
+            throw new Exception("Failed");
     }
 
-    public void DeleteCar(int id)
+    public async Task DeleteCarAsync(int id)
     {
+        _db.Cars.Remove(await this.GetCarAsync(id));
+        if (await _db.SaveChangesAsync() == 0)
+            throw new Exception("Failed");
     }
 
-    public void UpdateCar(int t, Car car)
+    public async Task UpdateCarAsync(int id, Car car)
     {
+        var carToBeUpdated = await GetCarAsync(id);
+        if (carToBeUpdated == null)
+            throw new Exception("Failed");
+        carToBeUpdated.Brand = car.Brand;
+        carToBeUpdated.Color = car.Color;
+        carToBeUpdated.NumberOfDoors = car.NumberOfDoors;
+        carToBeUpdated.Year = car.Year;
+        if (await _db.SaveChangesAsync() == 0)
+            throw new Exception("Failed");
     }
 
-    public Car GetCar(int id)
+    public async Task<Car?> GetCarAsync(int id)
     {
-        var c = _db.Cars.Find(id); // LINQ query
-        return c;
-
+        return await _db.Cars.FirstOrDefaultAsync(x => x.Id == id); // LINQ query
     }
 
-    public List<Car> GetCars()
+    public async Task<IEnumerable<Car>> GetCarsSync()
     {
-        var cars = _db.Cars.ToList();
-        return cars;
+        return await _db.Cars.ToListAsync();
     }
 
 }
