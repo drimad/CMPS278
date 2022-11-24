@@ -1,4 +1,6 @@
 using Cars.Data;
+using Cars.Interfaces;
+using Cars.Repos;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +17,8 @@ builder.Services.AddDbContext<AppDbContext>(
         opt.UseSqlite(builder.Configuration.GetConnectionString("sqlite"));
     }
 );
+
+builder.Services.AddScoped<ICarRepo, CarRepo>(); // Dependency Injection
 
 var app = builder.Build();
 

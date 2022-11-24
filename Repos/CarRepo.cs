@@ -1,10 +1,11 @@
 using Cars.Data;
+using Cars.Interfaces;
 using Cars.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cars.Repos;
 
-public class CarRepo
+public class CarRepo : ICarRepo
 {
     private readonly AppDbContext _db;
 
@@ -13,42 +14,50 @@ public class CarRepo
         this._db = db;
     }
 
-    public void AddCarAsync(Car car)
+    public async Task<Car?> AddCarAsync(Car car)
     {
         _db.Cars.Add(car);
-        var count = _db.SaveChanges();
-        if (count == 0)
-            throw new Exception("Failed");
+        var success = await _db.SaveChangesAsync() > 0;
+        if (!success)
+            return null;
+        return car;
     }
 
-    public async Task DeleteCarAsync(int id)
+    public async Task<bool> DeleteCarAsync(int id)
     {
-        _db.Cars.Remove(await this.GetCarAsync(id));
-        if (await _db.SaveChangesAsync() == 0)
-            throw new Exception("Failed");
+        var car = await _db.Cars.FirstOrDefaultAsync(x => x.Id == id);
+        if (car == null)
+            return false;
+        _db.Cars.Remove(car);
+        var success = await _db.SaveChangesAsync() > 0;
+        if (!success)
+            return false;
+        return true;
     }
 
-    public async Task UpdateCarAsync(int id, Car car)
+    public async Task<Car?> GetByIdAsync(int id)
     {
-        var carToBeUpdated = await GetCarAsync(id);
-        if (carToBeUpdated == null)
-            throw new Exception("Failed");
-        carToBeUpdated.Brand = car.Brand;
-        carToBeUpdated.Color = car.Color;
-        carToBeUpdated.NumberOfDoors = car.NumberOfDoors;
-        carToBeUpdated.Year = car.Year;
-        if (await _db.SaveChangesAsync() == 0)
-            throw new Exception("Failed");
+        var car = await _db.Cars.FirstOrDefaultAsync(x => x.Id == id);
+        if (car != null)
+            return car;
+        return null;
     }
 
-    public async Task<Car?> GetCarAsync(int id)
-    {
-        return await _db.Cars.FirstOrDefaultAsync(x => x.Id == id); // LINQ query
-    }
-
-    public async Task<IEnumerable<Car>> GetCarsSync()
+    public async Task<List<Car>> GetCarsAsync()
     {
         return await _db.Cars.ToListAsync();
     }
 
+    public async Task<Car?> UpdateCarAsync(Car car, int id)
+    {
+        var carToBeUpdated = await GetByIdAsync(id);
+        if (carToBeUpdated == null) return null;
+
+        carToBeUpdated.Brand = car.Brand;
+        carToBeUpdated.Color = car.Color;
+        carToBeUpdated.NumberOfDoors = car.NumberOfDoors;
+        carToBeUpdated.Year = car.Year;
+
+        return carToBeUpdated;
+    }
 }

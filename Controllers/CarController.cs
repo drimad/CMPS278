@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Cars.Models;
 using Cars.Repos;
+using Cars.Interfaces;
 
 namespace Cars.Controllers;
 
@@ -8,43 +9,53 @@ namespace Cars.Controllers;
 [Route("/api/[controller]")]
 public class CarsController : ControllerBase
 {
+    private readonly ICarRepo _repo;
+
+    public CarsController(ICarRepo repo)
+    {
+        this._repo = repo;
+    }
 
     [HttpGet]
-    public IActionResult GetAllCars()
+    public async Task<ActionResult<List<Car>>> GetAllCars()
     {
-        var repo = new CarRepo();
-        return Ok(repo.GetCars());
+        return Ok(await _repo.GetCarsAsync());
     }
 
     [HttpGet("{id:int}")]
-    public IActionResult GetOneCar(int id)
+    public async Task<IActionResult> GetOneCar(int id)
     {
-        var repo = new CarRepo();
-        return Ok(repo.GetCar(id));
+        var car = await _repo.GetByIdAsync(id);
+        if (car == null)
+            return NotFound();
+        return Ok(car);
     }
 
     [HttpPost]
-    public IActionResult AddCar(Car car)
+    public async Task<ActionResult<Car>> AddCar(Car car)
     {
-        var repo = new CarRepo();
-        repo.AddCar(car);
-        return Created("", car);
+        var addedCar = await _repo.AddCarAsync(car);
+        if (addedCar != null) return
+            Created($"api/cars/{addedCar.Id}", addedCar);
+        return BadRequest();
     }
 
     [HttpDelete("{id:int}")]
-    public IActionResult DeleteCar(int id)
+    public async Task<IActionResult> DeleteCar(int id)
     {
-        var repo = new CarRepo();
-        repo.DeleteCar(id);
-        return NoContent();
+        var success = await _repo.DeleteCarAsync(id);
+        if (success)
+            return NoContent();
+        return BadRequest();
     }
 
     [HttpPut("{id:int}")]
-    public IActionResult UpdateCar(int id, Car car)
+    public async Task<IActionResult> UpdateCar(int id, Car car)
     {
-        var repo = new CarRepo();
-        repo.UpdateCar(id, car);
-        return NoContent();
+        var updatedCar = await _repo.UpdateCarAsync(car, id);
+        if (updatedCar != null) return
+            Ok(updatedCar);
+        return BadRequest();
     }
 
 

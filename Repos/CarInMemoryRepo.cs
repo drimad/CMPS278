@@ -1,7 +1,8 @@
+using Cars.Interfaces;
 using Cars.Models;
 
 namespace Cars.Repos;
-public class CarInMemoryRepo
+public class CarInMemoryRepo : ICarRepo
 {
     private List<Car> Cars = new List<Car>
     {
@@ -42,5 +43,30 @@ public class CarInMemoryRepo
     public List<Car> GetCars()
     {
         return Cars;
+    }
+
+    public Task<List<Car>> GetCarsAsync()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<Car?> GetByIdAsync(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<Car?> AddCarAsync(Car car)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<bool> DeleteCarAsync(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<Car?> UpdateCarAsync(Car car, int id)
+    {
+        throw new NotImplementedException();
     }
 }
