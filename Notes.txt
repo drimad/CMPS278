@@ -37,3 +37,10 @@ NuGet packages needed for EFCore
 
 Note: to update EF tools: dotnet tool update --global dotnet-ef
 Note: to create migration: dotnet ef migrations add "add column"
+
+var author = await _db // LINQ
+    .Authors
+    .Include(x=>x.Books)
+    .ThenInclude(x=>x.Pages)
+    .FirstOrDefaultAsync(x=>x.Id==5);
+    
